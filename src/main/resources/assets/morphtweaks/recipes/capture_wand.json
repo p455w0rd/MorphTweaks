@@ -1,0 +1,19 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"  a",
+		" b ",
+		"b  "
+	],
+	"key": {
+		"a": {
+			"item": "minecraft:diamond_block"
+		},
+		"b": {
+			"item": "minecraft:blaze_rod"
+		}
+	},
+	"result": {
+		"item": "ardentcrafttweaks:capture_wand"
+	}
+}

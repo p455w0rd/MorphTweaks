@@ -1,0 +1,5 @@
+{
+    "parent": "block/block",
+    "textures": { "all": "ardentcrafttweaks:blocks/portal", "particle": "ardentcrafttweaks:blocks/portal" },
+    "elements": [{ "from": [ 0, 12, 0 ], "to": [ 16, 12, 16 ], "faces": {"up": {"texture": "#all" }}}]
+}

@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"aaa",
+		"bcb",
+		"bbb"
+	],
+	"key": {
+		"a": {
+			"item": "minecraft:cobblestone"
+		},
+		"c": {
+			"item": "minecraft:chest"
+		},
+		"b": {
+			"item": "minecraft:obsidian"
+		}
+	},
+	"result": {
+		"item": "ardentcrafttweaks:voidifier"
+	}
+}

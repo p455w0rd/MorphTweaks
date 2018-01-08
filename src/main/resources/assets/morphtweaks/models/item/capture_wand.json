@@ -1,0 +1,20 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "ardentcrafttweaks:items/capture_wand_empty"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"hasmob": 0
+			},
+			"model": "ardentcrafttweaks:item/capture_wand_empty"
+		},
+		{
+			"predicate": {
+				"hasmob": 1
+			},
+			"model": "ardentcrafttweaks:item/capture_wand_full"
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" a ",
+		"bcb",
+		"ccc"
+	],
+	"key": {
+		"a": {
+			"item": "minecraft:enchanting_table"
+		},
+		"b": {
+			"item": "minecraft:emerald"
+		},
+		"c": {
+			"item": "minecraft:obsidian"
+		}
+	},
+	"result": {
+		"item": "ardentcrafttweaks:enchanter"
+	}
+}
