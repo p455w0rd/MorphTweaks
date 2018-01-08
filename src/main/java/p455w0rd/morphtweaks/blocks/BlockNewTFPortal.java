@@ -37,10 +37,9 @@ import p455w0rd.morphtweaks.api.ITOPBlockDisplayOverride;
 import p455w0rd.morphtweaks.client.particle.ParticlePortal2;
 import p455w0rd.morphtweaks.init.ModBlocks;
 import p455w0rd.morphtweaks.init.ModGlobals;
-import p455w0rd.morphtweaks.init.ModLogger;
+import p455w0rd.morphtweaks.init.ModIntegration.Mods;
+import p455w0rd.morphtweaks.integration.TwilightForest;
 import p455w0rd.morphtweaks.util.MTweaksUtil;
-import p455w0rd.morphtweaks.util.MorphTFTeleporter;
-import twilightforest.TFConfig;
 
 /**
  * @author p455w0rd
@@ -93,13 +92,6 @@ public class BlockNewTFPortal extends BlockBreakable implements IModelHolder, IT
 			world.playEvent(2001, pos, Block.getStateId(state));
 			world.setBlockState(pos, MTweaksUtil.getFluidBlock().getDefaultState(), 3);
 		}
-		/*
-		boolean good = Arrays.stream(EnumFacing.HORIZONTALS).filter(e -> world.getBlockState(pos.offset(e)).getBlock() == this && ACTweaksUtil.isGrassOrDirt(world, pos.offset(e.getOpposite()))).count() >= 2;
-		if (!good) {
-			world.playEvent(2001, pos, Block.getStateId(state));
-			world.setBlockState(pos, ACTweaksUtil.getFluidBlock().getDefaultState());
-		}
-		*/
 	}
 
 	@Override
@@ -116,41 +108,13 @@ public class BlockNewTFPortal extends BlockBreakable implements IModelHolder, IT
 	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
 		if (!entity.isRiding() && entity.getPassengers().isEmpty() && entity.timeUntilPortal <= 0) {
-			if (entity instanceof EntityPlayerMP) {
+			if (entity instanceof EntityPlayerMP && Mods.TWILIGHTFOREST.isLoaded()) {
 				EntityPlayerMP playerMP = (EntityPlayerMP) entity;
-
-				if (playerMP.timeUntilPortal > 0) {
-					// do not switch dimensions if the player has any time on this thinger
-					playerMP.timeUntilPortal = 10;
-				}
-				else {
-
-					// send to twilight
-					if (playerMP.dimension != TFConfig.dimension.dimensionID) {
-						if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(playerMP, TFConfig.dimension.dimensionID)) {
-							return;
-						}
-
-						//PlayerHelper.grantAdvancement(playerMP, new ResourceLocation(TwilightForestMod.ID, "twilight_portal"));
-						ModLogger.debug("Player touched the portal block.  Sending the player to dimension " + TFConfig.dimension.dimensionID);
-
-						playerMP.mcServer.getPlayerList().transferPlayerToDimension(playerMP, TFConfig.dimension.dimensionID, MorphTFTeleporter.getTeleporterForDim(playerMP.mcServer, TFConfig.dimension.dimensionID));
-
-						// set respawn point for TF dimension to near the arrival portal
-						playerMP.setSpawnChunk(new BlockPos(playerMP), true, TFConfig.dimension.dimensionID);
-					}
-					else {
-						if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(playerMP, 0)) {
-							return;
-						}
-
-						playerMP.mcServer.getPlayerList().transferPlayerToDimension(playerMP, 0, MorphTFTeleporter.getTeleporterForDim(playerMP.mcServer, 0));
-					}
-				}
+				TwilightForest.sendToTwilightForest(playerMP);
 			}
 			else {
-				if (entity.dimension != TFConfig.dimension.dimensionID) {
-					MTweaksUtil.changeDimension(entity, TFConfig.dimension.dimensionID);
+				if (entity.dimension != TwilightForest.getTFDimensionID()) {
+					MTweaksUtil.changeDimension(entity, TwilightForest.getTFDimensionID());
 				}
 				else {
 					MTweaksUtil.changeDimension(entity, 0);

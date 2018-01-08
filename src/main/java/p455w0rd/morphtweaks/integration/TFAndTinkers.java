@@ -18,6 +18,7 @@ import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.passive.EntityZombieHorse;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.potion.PotionEffect;
@@ -33,7 +34,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import p455w0rd.morphtweaks.init.ModGlobals;
 import p455w0rd.morphtweaks.init.ModIntegration.Mods;
-import twilightforest.TFConfig;
 
 /**
  * @author p455w0rd
@@ -89,7 +89,7 @@ public class TFAndTinkers {
 								world.spawnEntity(skeleHorse);
 								entity.setDead();
 							}
-							else if (entity instanceof EntityItem && ((EntityItem) entity).getItem().getItem() == Item.REGISTRY.getObject(new ResourceLocation(TFConfig.portalCreationItem))) {
+							else if (entity instanceof EntityItem && ((EntityItem) entity).getItem().getItem() == Item.REGISTRY.getObject(Mods.TWILIGHTFOREST.isLoaded() ? TwilightForest.getPortalCreationItem() : Items.DIAMOND.getRegistryName())) {
 								//do nothing so it doesn't kill the item
 							}
 							else {

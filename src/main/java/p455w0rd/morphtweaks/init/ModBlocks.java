@@ -9,6 +9,7 @@ import p455w0rd.morphtweaks.blocks.BlockEnchanter;
 import p455w0rd.morphtweaks.blocks.BlockFakeAir;
 import p455w0rd.morphtweaks.blocks.BlockNewTFPortal;
 import p455w0rd.morphtweaks.blocks.BlockVoidifier;
+import p455w0rd.morphtweaks.init.ModIntegration.Mods;
 
 /**
  * @author p455w0rd
@@ -17,7 +18,7 @@ import p455w0rd.morphtweaks.blocks.BlockVoidifier;
 public class ModBlocks {
 
 	private static final NonNullList<Block> BLOCK_LIST = NonNullList.<Block>create();
-	public static final Block NEW_TF_PORTAL = new BlockNewTFPortal();
+	public static Block NEW_TF_PORTAL = null;
 	public static final Block BLOCK_FAKE_AIR = new BlockFakeAir();
 	public static final Block VOIDIFIER = new BlockVoidifier();
 	public static final Block ENCHANTER = new BlockEnchanter();
@@ -32,7 +33,10 @@ public class ModBlocks {
 
 	public static NonNullList<Block> getList() {
 		if (BLOCK_LIST.isEmpty()) {
-			BLOCK_LIST.addAll(Arrays.asList(NEW_TF_PORTAL, BLOCK_FAKE_AIR, VOIDIFIER, ENCHANTER));
+			BLOCK_LIST.addAll(Arrays.asList(BLOCK_FAKE_AIR, VOIDIFIER, ENCHANTER));
+			if (Mods.TWILIGHTFOREST.isLoaded()) {
+				BLOCK_LIST.add(NEW_TF_PORTAL = new BlockNewTFPortal());
+			}
 		}
 		return BLOCK_LIST;
 	}

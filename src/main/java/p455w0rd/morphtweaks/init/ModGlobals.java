@@ -13,7 +13,7 @@ public class ModGlobals {
 	public static final String CLIENT_PROXY = "p455w0rd.morphtweaks.proxy.ClientProxy";
 	public static final String GUI_FACTORY = "p455w0rd.morphtweaks.init.ModGuiFactory";
 	public static final String CONFIG_FILE = "config/MorphTweaks.cfg";
-	public static final String DEPENDANCIES = "required-after:twilightforest;" + CodeChickenLib.MOD_VERSION_DEP + "after:thermalfoundation;after:tconstruct;after:*";
+	public static final String DEPENDANCIES = "after:twilightforest;" + CodeChickenLib.MOD_VERSION_DEP + "after:thermalfoundation;after:tconstruct;after:*";
 
 	//public static float TIME = 0.0F;
 	private static int CLIENT_TICKS = 0;

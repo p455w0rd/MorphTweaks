@@ -1,13 +1,10 @@
 package p455w0rd.morphtweaks.init;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -15,17 +12,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -41,7 +33,6 @@ import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.world.BlockEvent.CreateFluidSourceEvent;
-import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -59,19 +50,15 @@ import p455w0rd.morphtweaks.init.ModConfig.Options;
 import p455w0rd.morphtweaks.init.ModIntegration.Mods;
 import p455w0rd.morphtweaks.integration.Baubles;
 import p455w0rd.morphtweaks.integration.TFAndTinkers;
+import p455w0rd.morphtweaks.integration.TwilightForest;
 import p455w0rd.morphtweaks.util.MTweaksUtil;
 import p455w0rd.morphtweaks.util.TextUtils;
-import twilightforest.TFConfig;
-import twilightforest.advancements.TFAdvancements;
 
 /**
  * @author p455w0rd
  *
  */
 public class ModEvents {
-
-	private static String TF_PORTAL_DISABLED_STRING = "";
-	private static String TF_PORTAL_DISABLED_STRING_2 = "";
 
 	public static void init() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
@@ -153,7 +140,7 @@ public class ModEvents {
 		EntityPlayer player = event.player;
 		World world = player.world;
 		if (!world.isRemote && event.phase == TickEvent.Phase.END && player.ticksExisted % 20 == 0) {
-			checkForPortalCreation(player, world, 6.0F);
+			TwilightForest.checkForPortalCreation(player, world, 6.0F);
 		}
 	}
 
@@ -163,75 +150,15 @@ public class ModEvents {
 		ModGlobals.incClientTicks();
 	}
 
-	private static void checkForPortalCreation(EntityPlayer player, World world, float rangeToCheck) {
-		if (world.provider.getDimension() == 0 || world.provider.getDimension() == TFConfig.dimension.dimensionID || TFConfig.allowPortalsInOtherDimensions) {
-			Item item = Item.REGISTRY.getObject(new ResourceLocation(TFConfig.portalCreationItem));
-			int metadata = TFConfig.portalCreationMeta;
-			if (item == null) {
-				item = Items.DIAMOND;
-				metadata = -1;
-			}
-			ItemStack itemStack = new ItemStack(item, 1, metadata);
-			final List<EntityItem> itemList = world.getEntitiesWithinAABB(EntityItem.class, player.getEntityBoundingBox().grow(rangeToCheck, rangeToCheck, rangeToCheck));
-
-			for (final EntityItem entityItem : itemList) {
-				if (item == entityItem.getItem().getItem() && (metadata == -1 || entityItem.getItem().getMetadata() == metadata)) {
-					if (world.isMaterialInBB(entityItem.getEntityBoundingBox(), Material.WATER) && MTweaksUtil.getFluidBlock() != Blocks.WATER) {
-						TF_PORTAL_DISABLED_STRING = TextFormatting.RED + "" + TextFormatting.BOLD + "Default TF Portal Creation disabled";
-						Block fluidBlock = MTweaksUtil.getFluidBlock();
-						ItemStack blockStack = new ItemStack(fluidBlock);
-						String blockName = blockStack.getDisplayName();
-						if (blockName.trim().equals("Air")) {
-							if (fluidBlock instanceof IFluidBlock) {
-								blockName = I18n.translateToLocal(((IFluidBlock) fluidBlock).getFluid().getUnlocalizedName());
-							}
-						}
-						TF_PORTAL_DISABLED_STRING_2 = TextFormatting.RED + "" + TextFormatting.BOLD + "You must throw a " + itemStack.getDisplayName() + " into a 2x2 pool of " + blockName;
-
-					}
-					else if (world.getBlockState(new BlockPos(entityItem)).getBlock() == MTweaksUtil.getFluidBlock()) {
-
-						Random rand = new Random();
-						for (int k = 0; k < 2; k++) {
-							double d = rand.nextGaussian() * 0.02D;
-							double d1 = rand.nextGaussian() * 0.02D;
-							double d2 = rand.nextGaussian() * 0.02D;
-
-							world.spawnParticle(EnumParticleTypes.SPELL, entityItem.posX, entityItem.posY + 0.2, entityItem.posZ, d, d1, d2);
-						}
-
-						if (MTweaksUtil.tryToCreatePortal(world, new BlockPos(entityItem), entityItem)) {
-							TFAdvancements.MADE_TF_PORTAL.trigger((EntityPlayerMP) player);
-							return;
-						}
-					}
-					return;
-				}
-			}
-			if (!TF_PORTAL_DISABLED_STRING.isEmpty()) {
-				TF_PORTAL_DISABLED_STRING = "";
-				TF_PORTAL_DISABLED_STRING_2 = "";
-			}
-		}
-	}
-
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onPostRenderOverlay(RenderGameOverlayEvent.Post e) {
-		if (e.getType() == ElementType.SUBTITLES && !TF_PORTAL_DISABLED_STRING.isEmpty()) {
-			MTweaksUtil.renderHighlightText(76, TF_PORTAL_DISABLED_STRING);
-			MTweaksUtil.renderHighlightText(68, TF_PORTAL_DISABLED_STRING_2);
+		if (e.getType() == ElementType.SUBTITLES && !TwilightForest.TF_PORTAL_DISABLED_STRING.isEmpty()) {
+			MTweaksUtil.renderHighlightText(76, TwilightForest.TF_PORTAL_DISABLED_STRING);
+			MTweaksUtil.renderHighlightText(68, TwilightForest.TF_PORTAL_DISABLED_STRING_2);
 		}
 	}
 
-	/*
-	@SubscribeEvent
-	public void onBiomeDecoratePre(DecorateBiomeEvent.Pre event) {
-		if (event.getWorld().getSeaLevel() != -1) {
-			event.getWorld().setSeaLevel(-1);
-		}
-	}
-	*/
 	@SubscribeEvent
 	public void onEntityInteract(EntityInteract event) {
 		if (event.getEntityPlayer() != null && event.getEntityPlayer().getEntityWorld() != null) {
@@ -346,7 +273,6 @@ public class ModEvents {
 		}
 		if (Mods.BAUBLES.isLoaded()) {
 			IItemHandlerModifiable baubles = Baubles.getBaubles(event.getOriginal());
-			//IItemHandlerModifiable baublesNew = Baubles.getBaubles(player);
 			if (baubles != null) {
 				for (int i = 0; i < baubles.getSlots(); i++) {
 					ItemStack item = baubles.getStackInSlot(i);
@@ -399,7 +325,6 @@ public class ModEvents {
 
 		if (Mods.BAUBLES.isLoaded()) {
 			IItemHandlerModifiable baubles = Baubles.getBaubles(event.getOriginal());
-			//IItemHandlerModifiable baublesNew = Baubles.getBaubles(player);
 			if (baubles != null) {
 				for (int i = 0; i < baubles.getSlots(); i++) {
 					ItemStack item = baubles.getStackInSlot(i);

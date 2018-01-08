@@ -2,8 +2,8 @@
     "textures": {
         "particle": "blocks/enchanting_table_bottom",
         "bottom": "blocks/enchanting_table_bottom",
-        "top": "ardentcrafttweaks:blocks/enchanting_table_top",
-        "side": "ardentcrafttweaks:blocks/enchanting_table_side"
+        "top": "morphtweaks:blocks/enchanting_table_top",
+        "side": "morphtweaks:blocks/enchanting_table_side"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

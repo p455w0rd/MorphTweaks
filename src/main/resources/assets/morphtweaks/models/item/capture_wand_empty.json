@@ -1,6 +1,6 @@
 {
 	"parent": "item/handheld",
 	"textures": {
-		"layer0": "ardentcrafttweaks:items/capture_wand_empty"
+		"layer0": "morphtweaks:items/capture_wand_empty"
 	}
 }

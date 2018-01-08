@@ -33,7 +33,7 @@
   },
   "textures": {
     "particle":   "blocks/dirt",
-    "portal":     "ardentcrafttweaks:blocks/portal",
+    "portal":     "morphtweaks:blocks/portal",
     "dirt":       "blocks/dirt",
     "grass":      "blocks/grass_top",
     "grass_side": "blocks/grass_side_overlay",
