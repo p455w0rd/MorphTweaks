@@ -1,5 +1,6 @@
 package p455w0rd.morphtweaks.recipes;
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import p455w0rd.morphtweaks.api.IEnchanterRecipe;
 import p455w0rd.morphtweaks.init.ModRecipes;
@@ -85,7 +87,14 @@ public class RecipeEnchanter extends IForgeRegistryEntry.Impl<IEnchanterRecipe> 
 	}
 
 	private boolean isLapis(ItemStack stack) {
-		return stack.getItem() == Items.DYE && stack.getItemDamage() == 4;
+		List<ItemStack> ores = OreDictionary.getOres("gemLapis");
+		for (ItemStack ore : ores) {
+			if (net.minecraftforge.oredict.OreDictionary.itemMatches(ore, stack, false)) {
+				return true;
+			}
+		}
+		return false;
+		//return stack.getItem() == Items.DYE && stack.getItemDamage() == 4;
 	}
 
 	@Override
@@ -99,6 +108,7 @@ public class RecipeEnchanter extends IForgeRegistryEntry.Impl<IEnchanterRecipe> 
 
 	@Override
 	public void craftItem(InventoryEnchanter craftInput, EntityPlayer player) {
+		//player.onEnchant(getEnchantedBook(), getRequiredExperience());
 		craftInput.getStackInSlot(0).shrink(1);
 		craftInput.getStackInSlot(1).shrink(getRequiredItemCount());
 		craftInput.getStackInSlot(2).shrink(numLapis);

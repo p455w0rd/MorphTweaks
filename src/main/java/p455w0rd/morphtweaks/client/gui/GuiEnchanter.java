@@ -20,7 +20,6 @@ import p455w0rd.morphtweaks.container.ContainerEnchanter;
 import p455w0rd.morphtweaks.init.ModGlobals;
 import p455w0rd.morphtweaks.init.ModIntegration.Mods;
 import p455w0rd.morphtweaks.integration.JEI;
-import p455w0rd.morphtweaks.util.MTweaksUtil;
 import p455w0rd.morphtweaks.util.TextUtils;
 
 /**
@@ -29,8 +28,11 @@ import p455w0rd.morphtweaks.util.TextUtils;
  */
 public class GuiEnchanter extends GuiContainerBase {
 
+	ContainerEnchanter container;
+
 	public GuiEnchanter(Container inventorySlotsIn) {
 		super(inventorySlotsIn);
+		container = (ContainerEnchanter) inventorySlots;
 		xSize = 201;
 		ySize = 146;
 		guiLeft = ((width - xSize) / 2);
@@ -59,15 +61,15 @@ public class GuiEnchanter extends GuiContainerBase {
 			}
 			drawSlotBorder(inventorySlots.inventorySlots.get(i).xPos, inventorySlots.inventorySlots.get(i).yPos, offset);
 		}
-		if (inventorySlots instanceof ContainerEnchanter) {
+		/*
 			ContainerEnchanter container = (ContainerEnchanter) inventorySlots;
-			if (container.getEnchanter().getCurrentRecipe() != null) {
-				int requiredLevels = container.getEnchanter().getCurrentRecipe().getRequiredExperience();
+			if (container.getCurrentRecipe() != null) {
+				int requiredLevels = container.getCurrentRecipe().getRequiredExperience();
 				int playerLevels = MTweaksUtil.getExperienceLevels(mc.player);
-				int levelColor = playerLevels >= requiredLevels ? 0xFF00FF00 : 0xFFFF0000;
+				int levelColor = playerLevels >= requiredLevels | mc.player.capabilities.isCreativeMode ? 0xFF00FF00 : 0xFFFF0000;
 				mc.fontRenderer.drawString("XP Levels: " + requiredLevels, 64, 44, levelColor, true);
 			}
-		}
+		*/
 		GlStateManager.enableBlend();
 		GlStateManager.enableLighting();
 
@@ -100,9 +102,53 @@ public class GuiEnchanter extends GuiContainerBase {
 		}
 		else {
 			super.mouseClicked(mouseX, mouseY, mouseButton);
+			/*
+						if (getCurrentRecipe() == null) {
+							getOutputSlot().putStack(ItemStack.EMPTY);
+						}
+						else {
+							final ItemStack craftingResult = getCurrentRecipe().getCraftingResult(container.getEnchanterInventory());
+							int requiredLevels = getCurrentRecipe().getRequiredExperience();
+							int playerLevels = MTweaksUtil.getExperienceLevels(mc.player);
+							if (playerLevels >= requiredLevels || mc.player.capabilities.isCreativeMode) {
+								getOutputSlot().putStack(craftingResult);
+							}
+						}
+						if (getCurrentRecipe() != null) {
+							if (!getCurrentRecipe().getCraftingResult(container.getEnchanterInventory()).isEmpty()) {
+								int requiredLevels = getCurrentRecipe().getRequiredExperience();
+								int playerLevels = MTweaksUtil.getExperienceLevels(mc.player);
+								if (playerLevels >= requiredLevels || mc.player.capabilities.isCreativeMode) {
+									setOutputStack(getCurrentRecipe().getCraftingResult(container.getEnchanterInventory()));
+								}
+							}
+						}
+						else {
+							if (!getOutputStack().isEmpty()) {
+								setOutputStack(ItemStack.EMPTY);
+							}
+						}
+						*/
 		}
 	}
 
+	/*
+		public IEnchanterRecipe getCurrentRecipe() {
+			return container.getCurrentRecipe();
+		}
+	
+		public ItemStack getOutputStack() {
+			return container.getOutputStack();
+		}
+	
+		public void setOutputStack(@Nonnull ItemStack stack) {
+			container.setOutputStack(stack);
+		}
+	
+		private Slot getOutputSlot() {
+			return container.inventorySlots.get(3);
+		}
+	*/
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -113,8 +114,8 @@ public class ContainerEnchanter extends Container {
 		return false;
 	}
 
-	private SlotEnchanter getEnchanterSlot(Slot slot) {
-		return slot instanceof SlotEnchanter ? (SlotEnchanter) slot : null;
+	public IInventory getEnchanterInventory() {
+		return enchanter != null ? enchanter.getInventory() : null;
 	}
 
 	private boolean isOutputSlot(Slot slot) {

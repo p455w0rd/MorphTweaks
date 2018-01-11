@@ -10,7 +10,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import p455w0rd.morphtweaks.api.IEnchanterRecipe;
@@ -37,10 +36,12 @@ public class EnchanterRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void drawInfo(Minecraft mc, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+		/*
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(0.5, 0.5, 0.5);
 		mc.fontRenderer.drawString("XP Levels: " + recipe.getRequiredExperience(), 230, 40, 0xFF00FF00, true);
 		GlStateManager.popMatrix();
+		*/
 	}
 
 	@Override
