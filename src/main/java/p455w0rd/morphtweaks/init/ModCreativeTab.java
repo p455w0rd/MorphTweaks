@@ -13,6 +13,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import p455w0rd.morphtweaks.init.ModConfig.Options;
+import p455w0rd.morphtweaks.init.ModIntegration.Mods;
 import p455w0rd.morphtweaks.util.MTweaksUtil;
 
 /**
@@ -34,12 +35,14 @@ public class ModCreativeTab extends CreativeTabs {
 
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(ModBlocks.NEW_TF_PORTAL);
+		return new ItemStack(ModBlocks.ENCHANTER);
 	}
 
 	@Override
 	public void displayAllRelevantItems(NonNullList<ItemStack> items) {
-		items.add(new ItemStack(ModBlocks.NEW_TF_PORTAL));
+		if (Mods.TWILIGHTFOREST.isLoaded()) {
+			items.add(new ItemStack(ModBlocks.NEW_TF_PORTAL));
+		}
 		items.add(new ItemStack(ModBlocks.VOIDIFIER));
 		items.add(new ItemStack(ModBlocks.ENCHANTER));
 		items.add(MTweaksUtil.getEnchantedBook(ModEnchantments.SOUL_BOUND, 1));

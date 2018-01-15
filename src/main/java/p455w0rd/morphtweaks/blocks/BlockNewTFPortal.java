@@ -39,7 +39,6 @@ import p455w0rd.morphtweaks.init.ModBlocks;
 import p455w0rd.morphtweaks.init.ModGlobals;
 import p455w0rd.morphtweaks.init.ModIntegration.Mods;
 import p455w0rd.morphtweaks.integration.TwilightForest;
-import p455w0rd.morphtweaks.util.MTweaksUtil;
 
 /**
  * @author p455w0rd
@@ -86,11 +85,11 @@ public class BlockNewTFPortal extends BlockBreakable implements IModelHolder, IT
 			}
 			IBlockState neighboringState = world.getBlockState(pos.offset(facing));
 
-			good = MTweaksUtil.isGrassOrDirt(neighboringState) || neighboringState.getBlock() == ModBlocks.NEW_TF_PORTAL;
+			good = TwilightForest.isGrassOrDirt(neighboringState) || neighboringState.getBlock() == ModBlocks.NEW_TF_PORTAL;
 		}
 		if (!good) {
 			world.playEvent(2001, pos, Block.getStateId(state));
-			world.setBlockState(pos, MTweaksUtil.getFluidBlock().getDefaultState(), 3);
+			world.setBlockState(pos, TwilightForest.getFluidBlock().getDefaultState(), 3);
 		}
 	}
 
@@ -114,10 +113,10 @@ public class BlockNewTFPortal extends BlockBreakable implements IModelHolder, IT
 			}
 			else {
 				if (entity.dimension != TwilightForest.getTFDimensionID()) {
-					MTweaksUtil.changeDimension(entity, TwilightForest.getTFDimensionID());
+					TwilightForest.changeDimension(entity, TwilightForest.getTFDimensionID());
 				}
 				else {
-					MTweaksUtil.changeDimension(entity, 0);
+					TwilightForest.changeDimension(entity, 0);
 				}
 			}
 		}

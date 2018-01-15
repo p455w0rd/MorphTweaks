@@ -62,7 +62,6 @@ public class ModEvents {
 
 	public static void init() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
-		//MinecraftForge.TERRAIN_GEN_BUS.register(new ModEvents());
 	}
 
 	@SubscribeEvent
@@ -137,10 +136,12 @@ public class ModEvents {
 
 	@SubscribeEvent
 	public void playerTick(PlayerTickEvent event) {
-		EntityPlayer player = event.player;
-		World world = player.world;
-		if (!world.isRemote && event.phase == TickEvent.Phase.END && player.ticksExisted % 20 == 0) {
-			TwilightForest.checkForPortalCreation(player, world, 6.0F);
+		if (Mods.TWILIGHTFOREST.isLoaded()) {
+			EntityPlayer player = event.player;
+			World world = player.world;
+			if (!world.isRemote && event.phase == TickEvent.Phase.END && player.ticksExisted % 20 == 0) {
+				TwilightForest.checkForPortalCreation(player, world, 6.0F);
+			}
 		}
 	}
 
@@ -153,9 +154,8 @@ public class ModEvents {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onPostRenderOverlay(RenderGameOverlayEvent.Post e) {
-		if (e.getType() == ElementType.SUBTITLES && !TwilightForest.TF_PORTAL_DISABLED_STRING.isEmpty()) {
-			MTweaksUtil.renderHighlightText(76, TwilightForest.TF_PORTAL_DISABLED_STRING);
-			MTweaksUtil.renderHighlightText(68, TwilightForest.TF_PORTAL_DISABLED_STRING_2);
+		if (e.getType() == ElementType.SUBTITLES && Mods.TWILIGHTFOREST.isLoaded()) {
+			TwilightForest.renderDisabledText();
 		}
 	}
 

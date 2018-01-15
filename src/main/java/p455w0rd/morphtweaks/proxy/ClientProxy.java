@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import p455w0rd.morphtweaks.init.ModBlocks;
 import p455w0rd.morphtweaks.init.ModCreativeTab;
+import p455w0rd.morphtweaks.init.ModIntegration.Mods;
 import p455w0rd.morphtweaks.init.ModItems;
-import p455w0rd.morphtweaks.init.ModRendering;
 import p455w0rd.morphtweaks.util.MTweaksUtil;
 
 public class ClientProxy extends CommonProxy {
@@ -26,10 +26,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
-		ModRendering.init();
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-			return tintIndex == 0 ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : -1;
-		}, ModBlocks.NEW_TF_PORTAL);
+		if (Mods.TWILIGHTFOREST.isLoaded()) {
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+				return tintIndex == 0 ? ColorizerGrass.getGrassColor(0.5D, 1.0D) : -1;
+			}, ModBlocks.NEW_TF_PORTAL);
+		}
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
 			return tintIndex != 2 ? MTweaksUtil.getCapturedMobInWand(stack) == null ? -1 : MTweaksUtil.getMobEggColor(MTweaksUtil.getCapturedMobInWand(stack), tintIndex) : -1;
 		}, ModItems.CAPTURE_WAND);

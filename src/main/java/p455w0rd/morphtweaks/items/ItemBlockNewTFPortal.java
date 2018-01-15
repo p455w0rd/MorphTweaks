@@ -13,7 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import p455w0rd.morphtweaks.util.MTweaksUtil;
+import p455w0rd.morphtweaks.integration.TwilightForest;
 
 /**
  * @author p455w0rd
@@ -43,7 +43,7 @@ public class ItemBlockNewTFPortal extends ItemBlock {
 			iblockstate1 = worldIn.getBlockState(pos);
 			SoundType soundtype = iblockstate1.getBlock().getSoundType(iblockstate1, worldIn, pos, player);
 			worldIn.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-			MTweaksUtil.placePortal(worldIn, pos, facing, player.getAdjustedHorizontalFacing());
+			TwilightForest.placePortal(worldIn, pos, facing, player.getAdjustedHorizontalFacing());
 			itemstack.shrink(1);
 
 			return EnumActionResult.SUCCESS;
