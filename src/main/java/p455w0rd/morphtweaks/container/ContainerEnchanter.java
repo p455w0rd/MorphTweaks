@@ -62,26 +62,30 @@ public class ContainerEnchanter extends Container {
 		ItemStack returnStack = ItemStack.EMPTY;
 		if (clickSlot.getHasStack()) {
 			ItemStack slotStack = clickSlot.getStack();
-			returnStack = slotStack.copy();
+
 			if (isEnchanterSlot(clickSlot)) {
 				if (!mergeItemStack(slotStack, 4, 40, true)) {
-					returnStack = ItemStack.EMPTY;
+					//returnStack = ItemStack.EMPTY;
+					returnStack = slotStack.copy();
 				}
 			}
 			else {
 				if (slotStack.getItem() == Items.WRITABLE_BOOK && !inventorySlots.get(0).getHasStack()) {
 					if (!tryMerge(clickSlot, inventorySlots.get(0))) {
-						returnStack = ItemStack.EMPTY;
+						//returnStack = ItemStack.EMPTY;
+						returnStack = slotStack.copy();
 					}
 				}
 				else if (ModRecipes.isValidEnchanterRecipeItem(slotStack) && slotStack.getCount() <= inventorySlots.get(1).getSlotStackLimit() && slotStack.getCount() <= slotStack.getMaxStackSize()) {
 					if (!tryMerge(clickSlot, inventorySlots.get(1))) {
-						returnStack = ItemStack.EMPTY;
+						//eturnStack = ItemStack.EMPTY;
+						returnStack = slotStack.copy();
 					}
 				}
 				else if (slotStack.getItem() == Items.DYE && slotStack.getItemDamage() == 4 && slotStack.getCount() <= inventorySlots.get(2).getSlotStackLimit() && slotStack.getCount() <= slotStack.getMaxStackSize()) {
 					if (!tryMerge(clickSlot, inventorySlots.get(2))) {
-						returnStack = ItemStack.EMPTY;
+						//returnStack = ItemStack.EMPTY;
+						returnStack = slotStack.copy();
 					}
 				}
 			}
