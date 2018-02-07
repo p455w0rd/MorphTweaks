@@ -7,7 +7,7 @@ public class ModGlobals {
 	public static final String MODID_PWLIB = "p455w0rdslib";
 
 	public static final String MODID = "morphtweaks";
-	public static final String VERSION = "1.3.5";
+	public static final String VERSION = "1.3.6";
 	public static final String NAME = "Morph Tweaks";
 	public static final String SERVER_PROXY = "p455w0rd.morphtweaks.proxy.CommonProxy";
 	public static final String CLIENT_PROXY = "p455w0rd.morphtweaks.proxy.ClientProxy";
