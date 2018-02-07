@@ -50,12 +50,14 @@ public class GuiContainerBase extends GuiContainer {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.GuiScreenEvent.BackgroundDrawnEvent(this));
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		for (int i1 = 0; i1 < inventorySlots.inventorySlots.size(); i1++) {
-			Slot slot = inventorySlots.inventorySlots.get(i1);
-			if (isPointInRegion(slot.xPos, slot.yPos, 16, 16, mouseX, mouseY) && slot.getHasStack()) {
-				renderToolTip(slot.getStack(), mouseX, mouseY);
+		if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.GuiScreenEvent.BackgroundDrawnEvent(this))) {
+			drawDefaultBackground();
+			super.drawScreen(mouseX, mouseY, partialTicks);
+			for (int i1 = 0; i1 < inventorySlots.inventorySlots.size(); i1++) {
+				Slot slot = inventorySlots.inventorySlots.get(i1);
+				if (isPointInRegion(slot.xPos, slot.yPos, 16, 16, mouseX, mouseY) && slot.getHasStack()) {
+					renderToolTip(slot.getStack(), mouseX, mouseY);
+				}
 			}
 		}
 	}
