@@ -96,8 +96,10 @@ public class ModEvents {
 
 	@SubscribeEvent
 	public void onBiomeRegistryReady(RegistryEvent.Register<Biome> event) {
-		for (Biome biome : ModBiomes.getList()) {
-			event.getRegistry().register(biome);
+		if (!Options.DISABLE_VANILLA_BIOME_REPLACEMENT) {
+			for (Biome biome : ModBiomes.getList()) {
+				event.getRegistry().register(biome);
+			}
 		}
 	}
 

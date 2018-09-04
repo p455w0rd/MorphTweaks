@@ -7,7 +7,7 @@ package p455w0rd.morphtweaks.world.biome;
 public class BiomeOceanReplacement extends BiomeReplacement {
 
 	public BiomeOceanReplacement() {
-		super(new BiomeProperties("OceanReplacement").setBaseHeight(-1.0F).setHeightVariation(0.1F));
+		super(new BiomeProperties("Ocean[MorphTweaks]").setBaseHeight(-1.0F).setHeightVariation(0.1F));
 	}
 
 }

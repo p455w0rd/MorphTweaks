@@ -28,6 +28,7 @@ public class ModConfig {
 		Options.DISABLE_INFINITE_WATER = CONFIG.getBoolean("DisableInfiniteWater", CAT, true, "Disables vanilla infinite water block mechanic");
 		Options.ENABLE_ENDERIUM_BLOCKS = CONFIG.getBoolean("EnableEnderiumFluidBlock", CAT, true, "If enabled, adds fluid enderium block to the world (requires Thermal Foundation and TiC)");
 		Options.DISABLE_CAPTURING_HOSTILE_MOBS = CONFIG.getBoolean("DisableHostileMobCapture", CAT, true, "If true, the Capture Wand will only capture neutral and friendly mobs");
+		Options.DISABLE_VANILLA_BIOME_REPLACEMENT = CONFIG.getBoolean("DisableVanillaBiomeReplacement", CAT, false, "If set to true, this will disable the replacing of vanilla river and ocean biomes");
 
 		if (CONFIG.hasChanged()) {
 			CONFIG.save();
@@ -47,6 +48,7 @@ public class ModConfig {
 		public static boolean DISABLE_INFINITE_WATER = true;
 		public static boolean ENABLE_ENDERIUM_BLOCKS = true;
 		public static boolean DISABLE_CAPTURING_HOSTILE_MOBS = true;
+		public static boolean DISABLE_VANILLA_BIOME_REPLACEMENT = false;
 
 	}
 

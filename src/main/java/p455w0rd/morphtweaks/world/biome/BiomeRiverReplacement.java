@@ -7,7 +7,7 @@ package p455w0rd.morphtweaks.world.biome;
 public class BiomeRiverReplacement extends BiomeReplacement {
 
 	public BiomeRiverReplacement() {
-		super(new BiomeProperties("ReverReplacement").setBaseHeight(-0.5F).setHeightVariation(0.0F));
+		super(new BiomeProperties("River[MorphTweaks]").setBaseHeight(-0.5F).setHeightVariation(0.0F));
 		spawnableCreatureList.clear();
 	}
 
