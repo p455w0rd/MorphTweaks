@@ -18,9 +18,8 @@ import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.passive.EntityZombieHorse;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -89,7 +88,7 @@ public class TFAndTinkers {
 								world.spawnEntity(skeleHorse);
 								entity.setDead();
 							}
-							else if (entity instanceof EntityItem && ((EntityItem) entity).getItem().getItem() == Item.REGISTRY.getObject(Mods.TWILIGHTFOREST.isLoaded() ? TwilightForest.getPortalCreationItem() : Items.DIAMOND.getRegistryName())) {
+							else if (entity instanceof EntityItem && isValidPortalActivationItem(((EntityItem) entity).getItem())) {
 								//do nothing so it doesn't kill the item
 							}
 							else {
@@ -104,6 +103,15 @@ public class TFAndTinkers {
 				}
 			}
 		}
+	}
+
+	private static boolean isValidPortalActivationItem(ItemStack stackIn) {
+		for (ItemStack stack : TwilightForest.getPortalActivationItemList()) {
+			if (ItemStack.areItemStacksEqual(stack, stackIn)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)

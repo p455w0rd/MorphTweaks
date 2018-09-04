@@ -52,7 +52,7 @@ public class BlockNewTFPortal extends BlockBreakable implements IModelHolder, IT
 	public BlockNewTFPortal() {
 		super(Material.PORTAL, false);
 		setUnlocalizedName(NAME);
-		setRegistryName(NAME);
+		setRegistryName(ModGlobals.MODID + ":" + NAME);
 		setHardness(-1F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(0.75F);

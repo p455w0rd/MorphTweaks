@@ -19,6 +19,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import p455w0rd.morphtweaks.api.IModelHolder;
+import p455w0rd.morphtweaks.init.ModGlobals;
 
 /**
  * @author p455w0rd
@@ -26,10 +27,12 @@ import p455w0rd.morphtweaks.api.IModelHolder;
  */
 public class BlockFakeAir extends Block implements IModelHolder {
 
+	private static final String NAME = "fake_air";
+
 	public BlockFakeAir() {
 		super(new MaterialTransparent(MapColor.AIR));
-		setUnlocalizedName("fake_air");
-		setRegistryName("fake_air");
+		setUnlocalizedName(NAME);
+		setRegistryName(ModGlobals.MODID + ":" + NAME);
 	}
 
 	@Override

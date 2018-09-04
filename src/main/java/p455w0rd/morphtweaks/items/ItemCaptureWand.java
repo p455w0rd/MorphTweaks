@@ -22,9 +22,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import p455w0rd.morphtweaks.api.IModelHolder;
+import p455w0rd.morphtweaks.init.ModConfig.Options;
 import p455w0rd.morphtweaks.init.ModCreativeTab;
 import p455w0rd.morphtweaks.init.ModGlobals;
-import p455w0rd.morphtweaks.init.ModConfig.Options;
 import p455w0rd.morphtweaks.util.MTweaksUtil;
 
 /**
@@ -36,7 +36,7 @@ public class ItemCaptureWand extends Item implements IModelHolder {
 	private static final String NAME = "capture_wand";
 
 	public ItemCaptureWand() {
-		setRegistryName(NAME);
+		setRegistryName(ModGlobals.MODID + ":" + NAME);
 		setUnlocalizedName(NAME);
 		addPropertyOverride(new ResourceLocation("hasmob"), (stack, world, entity) -> MTweaksUtil.doesWandHaveMobStored(stack) ? 1 : 0);
 	}

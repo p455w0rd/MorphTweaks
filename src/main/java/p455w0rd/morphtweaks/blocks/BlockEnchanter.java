@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -46,8 +47,8 @@ public class BlockEnchanter extends BlockContainer implements IModelHolder {
 		super(Material.ROCK, MapColor.RED);
 		setLightOpacity(0);
 		setUnlocalizedName(NAME);
-		setRegistryName(NAME);
-		GameRegistry.registerTileEntity(TileEnchanter.class, ModGlobals.MODID + "" + NAME);
+		setRegistryName(ModGlobals.MODID + ":" + NAME);
+		GameRegistry.registerTileEntity(TileEnchanter.class, new ResourceLocation(ModGlobals.MODID + ":" + NAME));
 	}
 
 	@Override

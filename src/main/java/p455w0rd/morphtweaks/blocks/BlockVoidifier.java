@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -41,10 +42,10 @@ public class BlockVoidifier extends Block implements ITileEntityProvider, IModel
 	public BlockVoidifier() {
 		super(Material.ROCK, MapColor.PURPLE);
 		setUnlocalizedName(NAME);
-		setRegistryName(NAME);
+		setRegistryName(ModGlobals.MODID + ":" + NAME);
 		setResistance(20.0F);
 		setHardness(5.0F);
-		GameRegistry.registerTileEntity(TileVoidifier.class, ModGlobals.MODID + ":voidifier");
+		GameRegistry.registerTileEntity(TileVoidifier.class, new ResourceLocation(ModGlobals.MODID + ":" + NAME));
 	}
 
 	/*

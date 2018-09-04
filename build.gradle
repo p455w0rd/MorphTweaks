@@ -21,7 +21,7 @@ archivesBaseName = "MorphTweaks"
 sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
-    version = "1.12.2-14.23.1.2583"
+    version = "1.12.2-14.23.4.2759"
 	mappings = "snapshot_20171003"
 	runDir = "run"
 }
@@ -56,8 +56,13 @@ repositories {
 
 dependencies {
 	deobfCompile "mezz.jei:jei_1.12:+"
-	deobfCompile "codechicken:CodeChickenLib:1.12-3+:universal"
-	deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
+	deobfCompile "codechicken:CodeChickenLib:1.12.2-3+:universal"
+	deobfCompile "cofh:RedstoneFlux:1.12-2+:universal"
+	deobfCompile "cofh:ThermalDynamics:1.12.2-2+:universal"
+	deobfCompile "cofh:ThermalFoundation:1.12.2-2+:universal"
+	deobfCompile "cofh:ThermalExpansion:1.12.2-5+:universal"
+	deobfCompile "cofh:CoFHCore:1.12.2-4+:universal"
+	deobfCompile "cofh:CoFHWorld:1.12.2-1+:universal"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.15-8"
 	deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
 }
